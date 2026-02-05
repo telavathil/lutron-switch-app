@@ -1,9 +1,33 @@
-<div class="bg-white shadow rounded-lg p-4 h-full">
-  <h2 class="text-lg font-semibold text-gray-900 mb-4">Navigation</h2>
+<div style="display: flex; flex-direction: column; gap: 2rem; height: 100%;">
+  <div>
+    <h2 style="
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--color-white);
+      margin: 0 0 0.5rem 0;
+    ">
+      Navigation
+    </h2>
+    <div style="
+      height: 1px;
+      background: linear-gradient(to right, var(--color-amber), transparent);
+      margin-bottom: 1.5rem;
+    "></div>
+  </div>
 
   {{#if projects.length}}
-    <div class="mb-4">
-      <label for="project-select" class="block text-sm font-medium text-gray-700 mb-2">
+    <div>
+      <label style="
+        display: block;
+        font-family: var(--font-technical);
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--color-silver);
+        margin-bottom: 0.75rem;
+      ">
         Project
       </label>
       <select
@@ -13,34 +37,81 @@
         hx-swap="innerHTML"
         hx-include="this"
         name="projectId"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        style="
+          width: 100%;
+          background: var(--color-slate);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 2px;
+          padding: 0.875rem 1rem;
+          font-family: var(--font-technical);
+          font-size: 13px;
+          color: var(--color-pearl);
+          cursor: pointer;
+          transition: all 0.3s ease;
+        "
+        onfocus="this.style.borderColor='var(--color-amber)'; this.style.boxShadow='0 0 0 3px var(--color-glow)'"
+        onblur="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.boxShadow='none'"
       >
         {{#each projects}}
-          <option value="{{id}}">
-            {{name}}
-          </option>
+          <option value="{{id}}">{{name}}</option>
         {{/each}}
       </select>
     </div>
 
-    <div id="sidebar-content">
+    <div id="sidebar-content" style="flex: 1; overflow-y: auto;">
       {{#if navigation.length}}
-        <nav class="space-y-2">
+        <nav style="display: flex; flex-direction: column; gap: 1.5rem;">
           {{#each navigation}}
-            <div class="border-l-2 border-gray-200 pl-2">
-              <div class="text-sm font-medium text-gray-900 mb-1">{{name}}</div>
+            <div>
+              <div style="
+                font-family: var(--font-technical);
+                font-size: 11px;
+                font-weight: 500;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                color: var(--color-amber);
+                margin-bottom: 0.75rem;
+                padding-left: 1rem;
+                border-left: 2px solid var(--color-amber);
+              ">
+                {{name}}
+              </div>
               {{#each rooms}}
-                <div class="ml-2 mb-2">
-                  <div class="text-sm font-medium text-gray-700 mb-1">{{name}}</div>
-                  <div class="ml-2 space-y-1">
+                <div style="margin-bottom: 1rem;">
+                  <div style="
+                    font-family: var(--font-technical);
+                    font-size: 11px;
+                    letter-spacing: 0.08em;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                    padding-left: 1.5rem;
+                  ">
+                    {{name}}
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 0.375rem; padding-left: 1.5rem;">
                     {{#each keypads}}
                       <button
                         hx-get="/api/keypad/{{id}}"
                         hx-target="#main-content"
                         hx-swap="innerHTML"
-                        class="w-full text-left px-2 py-1 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-700 rounded"
+                        style="
+                          width: 100%;
+                          text-align: left;
+                          background: var(--color-slate);
+                          border: 1px solid rgba(255, 255, 255, 0.08);
+                          border-radius: 2px;
+                          padding: 0.75rem 1rem;
+                          font-family: var(--font-technical);
+                          font-size: 12px;
+                          color: var(--color-pearl);
+                          cursor: pointer;
+                          transition: all 0.2s ease;
+                          letter-spacing: 0.05em;
+                        "
+                        onmouseover="this.style.background='var(--color-iron)'; this.style.borderColor='var(--color-amber)'; this.style.transform='translateX(4px)'"
+                        onmouseout="this.style.background='var(--color-slate)'; this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.transform='translateX(0)'"
                       >
-                        Gang {{wallplate.gangPosition}}
+                        <span style="color: var(--color-silver); font-size: 10px;">GANG</span> {{wallplate.gangPosition}}
                       </button>
                     {{/each}}
                   </div>
@@ -50,13 +121,60 @@
           {{/each}}
         </nav>
       {{else}}
-        <p class="text-sm text-gray-500">No keypads found in this project.</p>
+        <div style="
+          text-align: center;
+          padding: 2rem 1rem;
+          background: var(--color-slate);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 2px;
+        ">
+          <p style="
+            font-family: var(--font-technical);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: var(--color-iron);
+            margin: 0;
+          ">
+            No keypads in this project
+          </p>
+        </div>
       {{/if}}
     </div>
   {{else}}
-    <p class="text-sm text-gray-500">No projects available. Please import a configuration first.</p>
-    <a href="/" class="mt-4 inline-block text-sm text-blue-600 hover:text-blue-800">
-      Import Configuration →
-    </a>
+    <div style="
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--color-slate);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 2px;
+    ">
+      <p style="
+        font-family: var(--font-technical);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        color: var(--color-iron);
+        margin: 0 0 1.5rem 0;
+      ">
+        No projects available
+      </p>
+      <a href="/" style="
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: var(--color-iron);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        font-family: var(--font-technical);
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--color-amber);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      "
+      onmouseover="this.style.background='var(--color-slate)'; this.style.borderColor='var(--color-amber)'"
+      onmouseout="this.style.background='var(--color-iron)'; this.style.borderColor='rgba(255, 255, 255, 0.1)'">
+        Import Configuration →
+      </a>
+    </div>
   {{/if}}
 </div>

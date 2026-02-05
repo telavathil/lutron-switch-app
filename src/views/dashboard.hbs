@@ -1,16 +1,59 @@
-<div class="flex gap-6 h-[calc(100vh-12rem)]">
-  <aside class="w-80 flex-shrink-0 overflow-y-auto">
+<div class="animate-fade-in" style="display: grid; grid-template-columns: 380px 1fr; gap: 2rem; min-height: calc(100vh - 16rem);">
+  <aside style="
+    background: var(--color-carbon);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    box-shadow: var(--shadow-ambient);
+    padding: 2rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 16rem);
+  ">
     <div id="sidebar" hx-get="/api/sidebar" hx-trigger="load"></div>
   </aside>
 
-  <main class="flex-1 overflow-y-auto">
-    <div id="main-content" class="bg-white shadow rounded-lg p-6">
-      <div class="text-center py-12">
-        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+  <main style="
+    background: var(--color-carbon);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    box-shadow: var(--shadow-ambient);
+    padding: 3rem;
+    overflow-y: auto;
+  ">
+    <div id="main-content">
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 400px;
+        text-align: center;
+      ">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="
+          color: var(--color-iron);
+          margin-bottom: 2rem;
+          opacity: 0.5;
+        ">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-gray-900">No keypad selected</h3>
-        <p class="mt-1 text-sm text-gray-500">Select a keypad from the sidebar to view its configuration</p>
+        <h3 style="
+          font-family: var(--font-display);
+          font-size: 24px;
+          font-weight: 300;
+          letter-spacing: 0.08em;
+          color: var(--color-silver);
+          margin: 0 0 0.5rem 0;
+        ">
+          No Keypad Selected
+        </h3>
+        <p style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          letter-spacing: 0.1em;
+          color: var(--color-iron);
+          margin: 0;
+        ">
+          SELECT A KEYPAD FROM THE NAVIGATION TO BEGIN
+        </p>
       </div>
     </div>
   </main>

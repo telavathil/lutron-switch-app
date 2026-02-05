@@ -3,25 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lutron HomeWorks Configuration Manager</title>
+  <title>Lutron HomeWorks · Configuration Manager</title>
   <link rel="stylesheet" href="/css/output.css">
   <script src="/js/htmx.min.js"></script>
 </head>
-<body class="bg-gray-50 min-h-screen">
-  <header class="bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <h1 class="text-2xl font-bold text-gray-900">Lutron HomeWorks Configuration Manager</h1>
-    </div>
-  </header>
+<body>
+  <div class="content-wrapper">
+    <header style="
+      background: linear-gradient(to bottom, var(--color-carbon), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 2rem 3rem;
+    ">
+      <div style="max-width: 1800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <h1 style="
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin: 0;
+            color: var(--color-white);
+          ">
+            LUTRON <span style="font-weight: 600;">HOMEWORKS</span>
+          </h1>
+          <p style="
+            font-family: var(--font-technical);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-silver);
+            margin: 0.25rem 0 0 0;
+          ">
+            Configuration Manager
+          </p>
+        </div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          color: var(--color-silver);
+          letter-spacing: 0.1em;
+        ">
+          SYSTEM STATUS: <span style="color: var(--color-amber);">ONLINE</span>
+        </div>
+      </div>
+    </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    {{{body}}}
-  </main>
+    <main style="max-width: 1800px; margin: 0 auto; padding: 3rem;">
+      {{{body}}}
+    </main>
 
-  <footer class="bg-white border-t border-gray-200 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <p class="text-sm text-gray-500 text-center">Lutron HomeWorks Configuration Manager</p>
-    </div>
-  </footer>
+    <footer style="
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem 3rem;
+      margin-top: 4rem;
+    ">
+      <div style="
+        max-width: 1800px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-technical);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--color-iron);
+      ">
+        <div>© LUTRON ELECTRONICS CO., INC.</div>
+        <div>PRECISION LIGHTING CONTROL SYSTEMS</div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

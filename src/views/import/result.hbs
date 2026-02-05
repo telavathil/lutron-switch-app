@@ -1,54 +1,155 @@
 {{#if success}}
-<div class="bg-green-50 border border-green-200 rounded-md p-4">
-  <div class="flex">
-    <div class="flex-shrink-0">
-      <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+<div class="animate-fade-in" style="
+  background: linear-gradient(135deg, rgba(255, 184, 77, 0.1) 0%, rgba(255, 184, 77, 0.05) 100%);
+  border: 1px solid rgba(255, 184, 77, 0.3);
+  border-radius: 2px;
+  padding: 2rem;
+">
+  <div style="display: flex; gap: 1.5rem;">
+    <div style="flex-shrink: 0;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color: var(--color-amber);">
+        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <div class="ml-3">
-      <h3 class="text-sm font-medium text-green-800">Import Successful</h3>
-      <div class="mt-2 text-sm text-green-700">
-        <p>Project created successfully with:</p>
-        <ul class="list-disc list-inside mt-1">
-          <li>{{keypadCount}} keypads</li>
-          <li>{{loadCount}} loads</li>
+    <div style="flex: 1;">
+      <h3 style="
+        font-family: var(--font-technical);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--color-amber);
+        margin: 0 0 1rem 0;
+      ">
+        Import Successful
+      </h3>
+      <div style="
+        font-family: var(--font-technical);
+        font-size: 13px;
+        color: var(--color-pearl);
+        line-height: 1.8;
+      ">
+        <p style="margin: 0 0 1rem 0;">Configuration processed successfully:</p>
+        <ul style="
+          list-style: none;
+          padding: 0;
+          margin: 0 0 1.5rem 0;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.5rem;
+        ">
+          <li style="
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.75rem 1rem;
+            border-radius: 2px;
+          ">
+            <span style="color: var(--color-silver); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;">Keypads</span>
+            <div style="color: var(--color-amber); font-size: 18px; font-weight: 500; margin-top: 0.25rem;">{{keypadCount}}</div>
+          </li>
+          <li style="
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.75rem 1rem;
+            border-radius: 2px;
+          ">
+            <span style="color: var(--color-silver); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;">Loads</span>
+            <div style="color: var(--color-amber); font-size: 18px; font-weight: 500; margin-top: 0.25rem;">{{loadCount}}</div>
+          </li>
         </ul>
       </div>
       {{#if warnings.length}}
-      <div class="mt-3">
-        <p class="text-sm font-medium text-yellow-800">Warnings:</p>
-        <ul class="mt-1 text-sm text-yellow-700 list-disc list-inside">
+      <div style="
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 184, 77, 0.2);
+      ">
+        <p style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin: 0 0 0.75rem 0;
+        ">Warnings:</p>
+        <ul style="
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          font-size: 12px;
+          color: var(--color-silver);
+        ">
           {{#each warnings}}
-          <li>{{this}}</li>
+          <li style="padding: 0.25rem 0;">• {{this}}</li>
           {{/each}}
         </ul>
       </div>
       {{/if}}
-      <div class="mt-4">
-        <a href="/dashboard" class="text-sm font-medium text-green-800 hover:text-green-900">
-          View Configuration →
-        </a>
-      </div>
+      <a href="/dashboard" style="
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--color-slate);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        font-family: var(--font-technical);
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--color-amber);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      "
+      onmouseover="this.style.background='var(--color-iron)'; this.style.borderColor='var(--color-amber)'"
+      onmouseout="this.style.background='var(--color-slate)'; this.style.borderColor='rgba(255, 255, 255, 0.1)'">
+        View Configuration →
+      </a>
     </div>
   </div>
 </div>
 {{else}}
-<div class="bg-red-50 border border-red-200 rounded-md p-4">
-  <div class="flex">
-    <div class="flex-shrink-0">
-      <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+<div class="animate-fade-in" style="
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(139, 0, 0, 0.05) 100%);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 2px;
+  padding: 2rem;
+">
+  <div style="display: flex; gap: 1.5rem;">
+    <div style="flex-shrink: 0;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color: #dc2626;">
+        <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <div class="ml-3">
-      <h3 class="text-sm font-medium text-red-800">Import Failed</h3>
-      <div class="mt-2 text-sm text-red-700">
-        <p>{{error}}</p>
+    <div style="flex: 1;">
+      <h3 style="
+        font-family: var(--font-technical);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #dc2626;
+        margin: 0 0 1rem 0;
+      ">
+        Import Failed
+      </h3>
+      <div style="
+        font-family: var(--font-technical);
+        font-size: 13px;
+        color: var(--color-pearl);
+        line-height: 1.8;
+      ">
+        <p style="margin: 0 0 0.5rem 0;">{{error}}</p>
         {{#if errors.length}}
-        <ul class="mt-1 list-disc list-inside">
+        <ul style="
+          list-style: none;
+          padding: 0;
+          margin: 1rem 0 0 0;
+          font-size: 12px;
+          color: var(--color-silver);
+        ">
           {{#each errors}}
-          <li>{{this}}</li>
+          <li style="padding: 0.25rem 0;">• {{this}}</li>
           {{/each}}
         </ul>
         {{/if}}

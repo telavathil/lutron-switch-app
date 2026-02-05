@@ -1,55 +1,242 @@
-<div class="bg-white shadow rounded-lg p-6">
-  <div class="mb-6">
-    <h2 class="text-xl font-semibold text-gray-900">
-      {{keypad.location.area}} - {{keypad.location.room}}
-    </h2>
-    <p class="text-sm text-gray-600 mt-1">
-      {{keypad.model}} • Gang {{keypad.wallplate.gangPosition}} • {{keypad.wallplate.color}}
-    </p>
-  </div>
-
-  <div class="flex justify-center">
-    <div class="w-64 bg-gray-900 rounded-lg p-4 shadow-lg">
-      {{#if keypad.faceplate.label}}
-        <div class="text-center mb-3 text-white text-xs font-medium">
-          {{keypad.faceplate.label}}
-        </div>
-      {{/if}}
-
-      <div class="space-y-2">
-        {{#each keypad.buttons}}
-          <button
-            hx-get="/api/button/{{id}}/edit"
-            hx-target="#editor-panel"
-            hx-swap="innerHTML"
-            class="w-full px-3 py-2 rounded text-sm font-medium transition-colors bg-gray-800 text-white hover:bg-gray-700"
-          >
-            {{#if engraving.label}}
-              {{engraving.label}}
-            {{else}}
-              Button {{position}}
-            {{/if}}
-          </button>
-        {{/each}}
-      </div>
-
-      {{#if keypad.raiseLowerButtons}}
-        <div class="mt-4 flex gap-2">
-          <button class="flex-1 px-2 py-1 rounded text-xs bg-gray-800 text-white">
-            {{keypad.raiseLowerButtons.raise.label}}
-          </button>
-          <button class="flex-1 px-2 py-1 rounded text-xs bg-gray-800 text-white">
-            {{keypad.raiseLowerButtons.lower.label}}
-          </button>
-        </div>
-      {{/if}}
+<div class="animate-fade-in">
+  <div style="margin-bottom: 3rem;">
+    <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem;">
+      <h2 style="
+        font-family: var(--font-display);
+        font-size: 32px;
+        font-weight: 300;
+        letter-spacing: 0.08em;
+        color: var(--color-white);
+        margin: 0;
+      ">
+        {{keypad.location.area}}
+      </h2>
+      <span style="
+        font-family: var(--font-technical);
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        color: var(--color-silver);
+      ">
+        / {{keypad.location.room}}
+      </span>
+    </div>
+    <div style="
+      font-family: var(--font-technical);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-iron);
+      display: flex;
+      gap: 1.5rem;
+    ">
+      <span>{{keypad.model}}</span>
+      <span>•</span>
+      <span>GANG {{keypad.wallplate.gangPosition}}</span>
+      <span>•</span>
+      <span>{{keypad.wallplate.color}}</span>
     </div>
   </div>
 
-  <div class="mt-6">
-    <h3 class="text-sm font-medium text-gray-900 mb-2">Button Details</h3>
-    <div id="editor-panel" class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-      <p class="text-sm text-gray-500">Select a button to view and edit its configuration</p>
+  <div style="display: grid; grid-template-columns: 400px 1fr; gap: 3rem; align-items: start;">
+    <div style="
+      position: sticky;
+      top: 2rem;
+    ">
+      <div style="
+        background: linear-gradient(145deg, #0d0d0d 0%, #1a1a1a 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 3rem 2.5rem;
+        box-shadow: var(--shadow-keypad);
+        position: relative;
+      ">
+        <div style="
+          position: absolute;
+          inset: 0;
+          border-radius: 12px;
+          background: radial-gradient(circle at 50% 0%, rgba(255, 184, 77, 0.03) 0%, transparent 70%);
+          pointer-events: none;
+        "></div>
+
+        {{#if keypad.faceplate.label}}
+          <div style="
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          ">
+            <div style="
+              font-family: var(--font-display);
+              font-size: 14px;
+              font-weight: 300;
+              letter-spacing: 0.12em;
+              color: rgba(255, 255, 255, 0.6);
+              text-transform: uppercase;
+            ">
+              {{keypad.faceplate.label}}
+            </div>
+          </div>
+        {{/if}}
+
+        <div style="display: flex; flex-direction: column; gap: 0.875rem; position: relative;">
+          {{#each keypad.buttons}}
+            <button
+              hx-get="/api/button/{{id}}/edit"
+              hx-target="#editor-panel"
+              hx-swap="innerHTML"
+              class="keypad-button"
+              style="
+                background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 6px;
+                padding: 1.125rem 1.25rem;
+                font-family: var(--font-technical);
+                font-size: 12px;
+                font-weight: 400;
+                letter-spacing: 0.08em;
+                color: rgba(255, 255, 255, 0.9);
+                text-align: center;
+                cursor: pointer;
+                box-shadow:
+                  0 1px 0 rgba(255, 255, 255, 0.08) inset,
+                  0 4px 8px rgba(0, 0, 0, 0.4),
+                  0 0 20px rgba(255, 184, 77, 0);
+                transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+              "
+              onmouseover="
+                this.style.background='linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%)';
+                this.style.borderColor='rgba(255, 184, 77, 0.4)';
+                this.style.boxShadow='0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 6px 12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 184, 77, 0.2)';
+                this.style.transform='translateY(-2px)';
+              "
+              onmouseout="
+                this.style.background='linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%)';
+                this.style.borderColor='rgba(255, 255, 255, 0.12)';
+                this.style.boxShadow='0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 4px 8px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 184, 77, 0)';
+                this.style.transform='translateY(0)';
+              "
+              onmousedown="
+                this.style.transform='translateY(1px) scale(0.98)';
+                this.style.boxShadow='0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 184, 77, 0.3)';
+              "
+              onmouseup="
+                this.style.transform='translateY(-2px) scale(1)';
+              "
+            >
+              <div style="
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at center, rgba(255, 184, 77, 0.05) 0%, transparent 70%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: none;
+              "></div>
+              {{#if engraving.label}}
+                <span style="position: relative; z-index: 1;">{{engraving.label}}</span>
+              {{else}}
+                <span style="position: relative; z-index: 1; color: var(--color-iron);">BUTTON {{position}}</span>
+              {{/if}}
+            </button>
+          {{/each}}
+        </div>
+
+        {{#if keypad.raiseLowerButtons}}
+          <div style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.625rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+          ">
+            <button style="
+              background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              border-radius: 4px;
+              padding: 0.75rem;
+              font-family: var(--font-technical);
+              font-size: 10px;
+              letter-spacing: 0.12em;
+              color: rgba(255, 255, 255, 0.7);
+              text-align: center;
+              cursor: pointer;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+              transition: all 0.15s ease;
+            "
+            onmouseover="this.style.borderColor='rgba(255, 184, 77, 0.3)'; this.style.color='rgba(255, 255, 255, 0.9)'"
+            onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.12)'; this.style.color='rgba(255, 255, 255, 0.7)'">
+              {{keypad.raiseLowerButtons.raise.label}}
+            </button>
+            <button style="
+              background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              border-radius: 4px;
+              padding: 0.75rem;
+              font-family: var(--font-technical);
+              font-size: 10px;
+              letter-spacing: 0.12em;
+              color: rgba(255, 255, 255, 0.7);
+              text-align: center;
+              cursor: pointer;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+              transition: all 0.15s ease;
+            "
+            onmouseover="this.style.borderColor='rgba(255, 184, 77, 0.3)'; this.style.color='rgba(255, 255, 255, 0.9)'"
+            onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.12)'; this.style.color='rgba(255, 255, 255, 0.7)'">
+              {{keypad.raiseLowerButtons.lower.label}}
+            </button>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <div>
+      <h3 style="
+        font-family: var(--font-technical);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--color-silver);
+        margin: 0 0 1.5rem 0;
+      ">
+        Button Configuration
+      </h3>
+      <div id="editor-panel" style="
+        background: var(--color-slate);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 4px;
+        padding: 2.5rem;
+        min-height: 300px;
+      ">
+        <div style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          text-align: center;
+        ">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="
+            color: var(--color-iron);
+            margin-bottom: 1.5rem;
+            opacity: 0.4;
+          ">
+            <path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p style="
+            font-family: var(--font-technical);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            color: var(--color-iron);
+            margin: 0;
+          ">
+            SELECT A BUTTON TO VIEW CONFIGURATION
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
