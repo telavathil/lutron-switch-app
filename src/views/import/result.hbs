@@ -1,0 +1,59 @@
+{{#if success}}
+<div class="bg-green-50 border border-green-200 rounded-md p-4">
+  <div class="flex">
+    <div class="flex-shrink-0">
+      <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <div class="ml-3">
+      <h3 class="text-sm font-medium text-green-800">Import Successful</h3>
+      <div class="mt-2 text-sm text-green-700">
+        <p>Project created successfully with:</p>
+        <ul class="list-disc list-inside mt-1">
+          <li>{{keypadCount}} keypads</li>
+          <li>{{loadCount}} loads</li>
+        </ul>
+      </div>
+      {{#if warnings.length}}
+      <div class="mt-3">
+        <p class="text-sm font-medium text-yellow-800">Warnings:</p>
+        <ul class="mt-1 text-sm text-yellow-700 list-disc list-inside">
+          {{#each warnings}}
+          <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/if}}
+      <div class="mt-4">
+        <a href="/api/keypad/{{project.id}}" class="text-sm font-medium text-green-800 hover:text-green-900">
+          View Configuration →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{{else}}
+<div class="bg-red-50 border border-red-200 rounded-md p-4">
+  <div class="flex">
+    <div class="flex-shrink-0">
+      <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <div class="ml-3">
+      <h3 class="text-sm font-medium text-red-800">Import Failed</h3>
+      <div class="mt-2 text-sm text-red-700">
+        <p>{{error}}</p>
+        {{#if errors.length}}
+        <ul class="mt-1 list-disc list-inside">
+          {{#each errors}}
+          <li>{{this}}</li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
