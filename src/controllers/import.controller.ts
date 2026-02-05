@@ -22,6 +22,12 @@ export class ImportController {
     return {};
   }
 
+  @Get('dashboard')
+  @Render('dashboard')
+  getDashboard() {
+    return {};
+  }
+
   @Post('import')
   @UseInterceptors(
     FileFieldsInterceptor(

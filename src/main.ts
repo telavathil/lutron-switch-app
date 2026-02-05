@@ -12,7 +12,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
   app.setGlobalPrefix('api', {
-    exclude: ['/'],
+    exclude: ['/', '/dashboard'],
   });
 
   app.enableCors();
