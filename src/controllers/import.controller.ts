@@ -25,7 +25,7 @@ export class ImportController {
   @Get('dashboard')
   @Render('dashboard')
   getDashboard() {
-    return {};
+    return { layout: false };
   }
 
   @Post('import')

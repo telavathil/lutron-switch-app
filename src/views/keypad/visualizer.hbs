@@ -81,7 +81,7 @@
         <div style="display: flex; flex-direction: column; gap: 0.875rem; position: relative;">
           {{#each keypad.buttons}}
             <button
-              hx-get="/api/button/{{id}}/edit"
+              hx-get="/button/{{id}}/edit"
               hx-target="#editor-panel"
               hx-swap="innerHTML"
               class="keypad-button"

@@ -1,60 +1,172 @@
-<div class="animate-fade-in" style="display: grid; grid-template-columns: 380px 1fr; gap: 2rem; min-height: calc(100vh - 16rem);">
-  <aside style="
-    background: var(--color-carbon);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 2px;
-    box-shadow: var(--shadow-ambient);
-    padding: 2rem;
-    overflow-y: auto;
-    max-height: calc(100vh - 16rem);
-  ">
-    <div id="sidebar" hx-get="/api/sidebar" hx-trigger="load"></div>
-  </aside>
-
-  <main style="
-    background: var(--color-carbon);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 2px;
-    box-shadow: var(--shadow-ambient);
-    padding: 3rem;
-    overflow-y: auto;
-  ">
-    <div id="main-content">
-      <div style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 400px;
-        text-align: center;
-      ">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="
-          color: var(--color-iron);
-          margin-bottom: 2rem;
-          opacity: 0.5;
-        ">
-          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <h3 style="
-          font-family: var(--font-display);
-          font-size: 24px;
-          font-weight: 300;
-          letter-spacing: 0.08em;
-          color: var(--color-silver);
-          margin: 0 0 0.5rem 0;
-        ">
-          No Keypad Selected
-        </h3>
-        <p style="
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lutron HomeWorks · Dashboard</title>
+  <link rel="stylesheet" href="/css/output.css">
+  <script src="/js/htmx.min.js"></script>
+</head>
+<body>
+  <div class="content-wrapper">
+    <header style="
+      background: linear-gradient(to bottom, var(--color-carbon), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 2rem 3rem;
+    ">
+      <div style="max-width: 1800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: baseline; gap: 3rem;">
+          <div>
+            <h1 style="
+              font-family: var(--font-display);
+              font-size: 32px;
+              font-weight: 300;
+              letter-spacing: 0.05em;
+              margin: 0;
+              color: var(--color-white);
+            ">
+              LUTRON <span style="font-weight: 600;">HOMEWORKS</span>
+            </h1>
+            <p style="
+              font-family: var(--font-technical);
+              font-size: 10px;
+              letter-spacing: 0.15em;
+              text-transform: uppercase;
+              color: var(--color-silver);
+              margin: 0.25rem 0 0 0;
+            ">
+              Configuration Manager
+            </p>
+          </div>
+          <nav style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+            <a href="/" style="
+              font-family: var(--font-technical);
+              font-size: 11px;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: var(--color-silver);
+              text-decoration: none;
+              padding-bottom: 0.25rem;
+              border-bottom: 2px solid transparent;
+              transition: all 0.2s ease;
+            "
+            onmouseover="this.style.color='var(--color-amber)'; this.style.borderBottomColor='var(--color-amber)'"
+            onmouseout="this.style.color='var(--color-silver)'; this.style.borderBottomColor='transparent'">
+              Import
+            </a>
+            <a href="/dashboard" style="
+              font-family: var(--font-technical);
+              font-size: 11px;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: var(--color-amber);
+              text-decoration: none;
+              padding-bottom: 0.25rem;
+              border-bottom: 2px solid var(--color-amber);
+              transition: all 0.2s ease;
+            ">
+              Dashboard
+            </a>
+          </nav>
+        </div>
+        <div style="
           font-family: var(--font-technical);
           font-size: 11px;
+          color: var(--color-silver);
           letter-spacing: 0.1em;
-          color: var(--color-iron);
-          margin: 0;
         ">
-          SELECT A KEYPAD FROM THE NAVIGATION TO BEGIN
-        </p>
+          SYSTEM STATUS: <span style="color: var(--color-amber);">ONLINE</span>
+        </div>
       </div>
-    </div>
-  </main>
-</div>
+    </header>
+
+    <main style="max-width: 1800px; margin: 0 auto; padding: 3rem;">
+      <div class="animate-fade-in" style="display: grid; grid-template-columns: 380px 1fr; gap: 2rem; min-height: calc(100vh - 16rem);">
+        <aside style="
+          background: var(--color-carbon);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 2px;
+          box-shadow: var(--shadow-ambient);
+          padding: 2rem;
+          overflow-y: auto;
+          max-height: calc(100vh - 16rem);
+        ">
+          <div id="sidebar" hx-get="/sidebar" hx-trigger="load"></div>
+        </aside>
+
+        <div style="
+          background: var(--color-carbon);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 2px;
+          box-shadow: var(--shadow-ambient);
+          padding: 3rem;
+          overflow-y: auto;
+        ">
+          <div id="main-content">
+            <div style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              height: 400px;
+              text-align: center;
+            ">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="
+                color: var(--color-iron);
+                margin-bottom: 2rem;
+                opacity: 0.5;
+              ">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h3 style="
+                font-family: var(--font-display);
+                font-size: 24px;
+                font-weight: 300;
+                letter-spacing: 0.08em;
+                color: var(--color-silver);
+                margin: 0 0 0.5rem 0;
+              ">
+                No Keypad Selected
+              </h3>
+              <p style="
+                font-family: var(--font-technical);
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                color: var(--color-iron);
+                margin: 0;
+              ">
+                SELECT A KEYPAD FROM THE NAVIGATION TO BEGIN
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer style="
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem 3rem;
+      margin-top: 4rem;
+    ">
+      <div style="
+        max-width: 1800px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-technical);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--color-iron);
+      ">
+        <div>© LUTRON ELECTRONICS CO., INC.</div>
+        <div>PRECISION LIGHTING CONTROL SYSTEMS</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

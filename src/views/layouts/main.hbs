@@ -19,27 +19,61 @@
       padding: 2rem 3rem;
     ">
       <div style="max-width: 1800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
-        <div>
-          <h1 style="
-            font-family: var(--font-display);
-            font-size: 32px;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            margin: 0;
-            color: var(--color-white);
-          ">
-            LUTRON <span style="font-weight: 600;">HOMEWORKS</span>
-          </h1>
-          <p style="
-            font-family: var(--font-technical);
-            font-size: 10px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-silver);
-            margin: 0.25rem 0 0 0;
-          ">
-            Configuration Manager
-          </p>
+        <div style="display: flex; align-items: baseline; gap: 3rem;">
+          <div>
+            <h1 style="
+              font-family: var(--font-display);
+              font-size: 32px;
+              font-weight: 300;
+              letter-spacing: 0.05em;
+              margin: 0;
+              color: var(--color-white);
+            ">
+              LUTRON <span style="font-weight: 600;">HOMEWORKS</span>
+            </h1>
+            <p style="
+              font-family: var(--font-technical);
+              font-size: 10px;
+              letter-spacing: 0.15em;
+              text-transform: uppercase;
+              color: var(--color-silver);
+              margin: 0.25rem 0 0 0;
+            ">
+              Configuration Manager
+            </p>
+          </div>
+          <nav style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+            <a href="/" style="
+              font-family: var(--font-technical);
+              font-size: 11px;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: var(--color-silver);
+              text-decoration: none;
+              padding-bottom: 0.25rem;
+              border-bottom: 2px solid transparent;
+              transition: all 0.2s ease;
+            "
+            onmouseover="this.style.color='var(--color-amber)'; this.style.borderBottomColor='var(--color-amber)'"
+            onmouseout="this.style.color='var(--color-silver)'; this.style.borderBottomColor='transparent'">
+              Import
+            </a>
+            <a href="/dashboard" style="
+              font-family: var(--font-technical);
+              font-size: 11px;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: var(--color-silver);
+              text-decoration: none;
+              padding-bottom: 0.25rem;
+              border-bottom: 2px solid transparent;
+              transition: all 0.2s ease;
+            "
+            onmouseover="this.style.color='var(--color-amber)'; this.style.borderBottomColor='var(--color-amber)'"
+            onmouseout="this.style.color='var(--color-silver)'; this.style.borderBottomColor='transparent'">
+              Dashboard
+            </a>
+          </nav>
         </div>
         <div style="
           font-family: var(--font-technical);
