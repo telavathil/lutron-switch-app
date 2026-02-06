@@ -12,6 +12,10 @@ async function bootstrap() {
     layoutsDir: join(__dirname, '..', 'src', 'views', 'layouts'),
     defaultLayout: 'main',
     partialsDir: join(__dirname, '..', 'src', 'views', 'partials'),
+    helpers: {
+      eq: (a: any, b: any) => a === b,
+      json: (obj: any) => JSON.stringify(obj, null, 2),
+    },
   });
 
   app.engine('hbs', hbs.engine);
