@@ -67,6 +67,35 @@
         color: var(--color-silver);
         margin-bottom: 0.75rem;
       ">
+        Button Type
+      </label>
+      <div style="
+        font-family: var(--font-technical);
+        font-size: 13px;
+        color: var(--color-pearl);
+        padding: 1rem 1.25rem;
+        background: var(--color-carbon);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 2px;
+      ">
+        {{#if (eq button.logic.type 'toggle')}}
+          Toggle
+        {{else}}
+          Single Action
+        {{/if}}
+      </div>
+    </div>
+
+    <div>
+      <label style="
+        display: block;
+        font-family: var(--font-technical);
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--color-silver);
+        margin-bottom: 0.75rem;
+      ">
         LED Logic Type
       </label>
       <select
@@ -126,19 +155,169 @@
       </div>
     {{/if}}
 
-    <div>
-      <div style="
+    <div style="
+      padding: 1.5rem;
+      background: rgba(255, 184, 77, 0.05);
+      border: 1px solid rgba(255, 184, 77, 0.2);
+      border-radius: 2px;
+    ">
+      <p style="
         font-family: var(--font-technical);
         font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
+        letter-spacing: 0.08em;
         color: var(--color-silver);
-        margin-bottom: 1rem;
+        margin: 0 0 0.5rem 0;
       ">
-        Press Actions
+        ⚠️ Action editing coming soon
+      </p>
+      <p style="
+        font-family: var(--font-technical);
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        color: var(--color-iron);
+        margin: 0;
+        line-height: 1.6;
+      ">
+        Currently actions are imported from the Programming Report and displayed as read-only. Full action editing (add/remove/modify loads) will be available in the next update.
+      </p>
+    </div>
+
+    <!-- Display existing actions (read-only for now) -->
+    {{#if button.logic.actions.on}}
+      <div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        ">
+          <span style="
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #81c995;
+            border-radius: 50%;
+          "></span>
+          On Actions (Toggle)
+        </div>
+        {{#each button.logic.actions.on}}
+          <div style="
+            background: var(--color-carbon);
+            border: 1px solid rgba(129, 201, 149, 0.1);
+            border-radius: 2px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+          ">
+            <div style="
+              font-family: var(--font-technical);
+              font-size: 12px;
+              color: var(--color-pearl);
+              margin-bottom: 0.5rem;
+            ">
+              {{loadFullPath}}
+            </div>
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 0.75rem;
+              font-family: var(--font-technical);
+              font-size: 10px;
+              color: var(--color-silver);
+            ">
+              <div>Level: <span style="color: #81c995;">{{commandLevel}}%</span></div>
+              <div>Fade: <span style="color: #81c995;">{{fadeTime}}s</span></div>
+              <div>Delay: <span style="color: #81c995;">{{delay}}s</span></div>
+            </div>
+          </div>
+        {{/each}}
       </div>
-      {{#if button.logic.actions.press}}
+    {{/if}}
+
+    {{#if button.logic.actions.off}}
+      <div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        ">
+          <span style="
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #4a4a4a;
+            border-radius: 50%;
+          "></span>
+          Off Actions (Toggle)
+        </div>
+        {{#each button.logic.actions.off}}
+          <div style="
+            background: var(--color-carbon);
+            border: 1px solid rgba(74, 74, 74, 0.1);
+            border-radius: 2px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+          ">
+            <div style="
+              font-family: var(--font-technical);
+              font-size: 12px;
+              color: var(--color-pearl);
+              margin-bottom: 0.5rem;
+            ">
+              {{loadFullPath}}
+            </div>
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 0.75rem;
+              font-family: var(--font-technical);
+              font-size: 10px;
+              color: var(--color-silver);
+            ">
+              <div>Level: <span style="color: #9a9a9a;">{{commandLevel}}%</span></div>
+              <div>Fade: <span style="color: #9a9a9a;">{{fadeTime}}s</span></div>
+              <div>Delay: <span style="color: #9a9a9a;">{{delay}}s</span></div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{#if button.logic.actions.press}}
+      <div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        ">
+          <span style="
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--color-amber);
+            border-radius: 50%;
+          "></span>
+          Press Actions
+        </div>
         {{#each button.logic.actions.press}}
           <div style="
             background: var(--color-carbon);
@@ -169,7 +348,190 @@
             </div>
           </div>
         {{/each}}
-      {{else}}
+      </div>
+    {{/if}}
+
+    {{#if button.logic.actions.doubleTap}}
+      <div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        ">
+          <span style="
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #8ab4f8;
+            border-radius: 50%;
+          "></span>
+          Double Tap Actions
+        </div>
+        {{#each button.logic.actions.doubleTap}}
+          <div style="
+            background: var(--color-carbon);
+            border: 1px solid rgba(139, 180, 248, 0.1);
+            border-radius: 2px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+          ">
+            <div style="
+              font-family: var(--font-technical);
+              font-size: 12px;
+              color: var(--color-pearl);
+              margin-bottom: 0.5rem;
+            ">
+              {{loadFullPath}}
+            </div>
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 0.75rem;
+              font-family: var(--font-technical);
+              font-size: 10px;
+              color: var(--color-silver);
+            ">
+              <div>Level: <span style="color: #8ab4f8;">{{commandLevel}}%</span></div>
+              <div>Fade: <span style="color: #8ab4f8;">{{fadeTime}}s</span></div>
+              <div>Delay: <span style="color: #8ab4f8;">{{delay}}s</span></div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{#if button.logic.actions.release}}
+      <div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        ">
+          <span style="
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #81c995;
+            border-radius: 50%;
+          "></span>
+          Release Actions
+        </div>
+        {{#each button.logic.actions.release}}
+          <div style="
+            background: var(--color-carbon);
+            border: 1px solid rgba(129, 201, 149, 0.1);
+            border-radius: 2px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+          ">
+            <div style="
+              font-family: var(--font-technical);
+              font-size: 12px;
+              color: var(--color-pearl);
+              margin-bottom: 0.5rem;
+            ">
+              {{loadFullPath}}
+            </div>
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 0.75rem;
+              font-family: var(--font-technical);
+              font-size: 10px;
+              color: var(--color-silver);
+            ">
+              <div>Level: <span style="color: #81c995;">{{commandLevel}}%</span></div>
+              <div>Fade: <span style="color: #81c995;">{{fadeTime}}s</span></div>
+              <div>Delay: <span style="color: #81c995;">{{delay}}s</span></div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{#if button.logic.actions.hold}}
+      <div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        ">
+          <span style="
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #f8bb86;
+            border-radius: 50%;
+          "></span>
+          Hold Actions
+        </div>
+        {{#each button.logic.actions.hold}}
+          <div style="
+            background: var(--color-carbon);
+            border: 1px solid rgba(248, 187, 134, 0.1);
+            border-radius: 2px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+          ">
+            <div style="
+              font-family: var(--font-technical);
+              font-size: 12px;
+              color: var(--color-pearl);
+              margin-bottom: 0.5rem;
+            ">
+              {{loadFullPath}}
+            </div>
+            <div style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 0.75rem;
+              font-family: var(--font-technical);
+              font-size: 10px;
+              color: var(--color-silver);
+            ">
+              <div>Level: <span style="color: #f8bb86;">{{commandLevel}}%</span></div>
+              <div>Fade: <span style="color: #f8bb86;">{{fadeTime}}s</span></div>
+              <div>Delay: <span style="color: #f8bb86;">{{delay}}s</span></div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{#unless (or button.logic.actions.press button.logic.actions.doubleTap button.logic.actions.release button.logic.actions.hold button.logic.actions.on button.logic.actions.off)}}
+      <div>
+        <div style="
+          font-family: var(--font-technical);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--color-silver);
+          margin-bottom: 1rem;
+        ">
+          Button Actions
+        </div>
         <div style="
           text-align: center;
           padding: 2rem;
@@ -184,11 +546,11 @@
             color: var(--color-iron);
             margin: 0;
           ">
-            No press actions configured
+            No actions configured
           </p>
         </div>
-      {{/if}}
-    </div>
+      </div>
+    {{/unless}}
 
     <button
       type="submit"

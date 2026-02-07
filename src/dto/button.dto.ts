@@ -34,6 +34,7 @@ export class ButtonLogicDto {
   @IsOptional()
   sceneNumber?: number;
 
+  // Single Action button actions
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => LoadActionDto)
@@ -57,6 +58,19 @@ export class ButtonLogicDto {
   @Type(() => LoadActionDto)
   @IsOptional()
   holdActions?: LoadActionDto[];
+
+  // Toggle button actions
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => LoadActionDto)
+  @IsOptional()
+  onActions?: LoadActionDto[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => LoadActionDto)
+  @IsOptional()
+  offActions?: LoadActionDto[];
 }
 
 export class UpdateButtonDto {

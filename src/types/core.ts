@@ -61,10 +61,15 @@ export interface LoadAction {
 }
 
 export interface ButtonActions {
+  // Single Action button actions
   press?: LoadAction[];
   release?: LoadAction[];
   doubleTap?: LoadAction[];
   hold?: LoadAction[];
+
+  // Toggle button actions
+  on?: LoadAction[];
+  off?: LoadAction[];
 }
 
 export interface ButtonLogic {

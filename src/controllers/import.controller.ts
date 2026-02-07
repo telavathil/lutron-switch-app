@@ -67,10 +67,16 @@ export class ImportController {
 
       const mergeResult = this.merger.mergeData(engravingResult, programmingResult);
 
-      if (mergeResult.errors.length > 0) {
+      if (mergeResult.keypads.length === 0) {
+        mergeResult.warnings.push(
+          'No keypads were parsed. The PDF format may not match the expected patterns. Check server logs for PDF text samples.'
+        );
+      }
+
+      if (mergeResult.errors.length > 0 && mergeResult.keypads.length === 0) {
         return {
           success: false,
-          error: 'Errors occurred during parsing',
+          error: 'Failed to parse any keypads from the PDFs',
           errors: mergeResult.errors,
           warnings: mergeResult.warnings,
         };

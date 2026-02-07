@@ -8,6 +8,12 @@ export class ProjectService {
   constructor(@Inject(DATABASE_TOKEN) private readonly db: Database.Database) {}
 
   create(name: string, keypads: any[], loads: any[]): ProjectState {
+    const existingProject = this.findByName(name);
+    if (existingProject) {
+      console.log(`Deleting existing project with name: ${name}`);
+      this.delete(existingProject.id);
+    }
+
     const id = this.generateId();
     const now = Date.now();
 
@@ -60,6 +66,24 @@ export class ProjectService {
 
     if (!row) {
       throw new NotFoundException(`Project with ID ${id} not found`);
+    }
+
+    return {
+      id: row.id,
+      name: row.name,
+      created: row.created,
+      modified: row.modified,
+      originalState: JSON.parse(row.originalState),
+      currentState: JSON.parse(row.currentState),
+    };
+  }
+
+  findByName(name: string): ProjectState | null {
+    const stmt = this.db.prepare('SELECT * FROM projects WHERE name = ?');
+    const row = stmt.get(name) as any;
+
+    if (!row) {
+      return null;
     }
 
     return {

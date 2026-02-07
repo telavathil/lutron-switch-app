@@ -121,3 +121,102 @@ body::before {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* Responsive utilities */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 380px 1fr;
+  }
+}
+
+.responsive-padding {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .responsive-padding {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-padding {
+    padding: 3rem;
+  }
+}
+
+/* Sidebar responsive behavior */
+.sidebar-responsive {
+  /* Mobile: collapsible with max height */
+  max-height: 60vh;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .sidebar-responsive {
+    max-height: 70vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar-responsive {
+    /* Desktop: sticky sidebar that scrolls independently */
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+  }
+}
+
+/* Keypad visualizer layout */
+.keypad-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .keypad-layout {
+    grid-template-columns: 400px 1fr;
+    gap: 3rem;
+  }
+}
+
+.keypad-container {
+  /* Mobile: static */
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .keypad-container {
+    /* Desktop: sticky keypad visualization */
+    position: sticky;
+    top: 2rem;
+  }
+}
+
+/* Footer responsive */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .footer-tagline {
+    display: block;
+  }
+}

@@ -14,6 +14,10 @@ async function bootstrap() {
     partialsDir: join(__dirname, '..', 'src', 'views', 'partials'),
     helpers: {
       eq: (a: any, b: any) => a === b,
+      or: (...args: any[]) => {
+        args.pop();
+        return args.some(arg => !!arg);
+      },
       json: (obj: any) => JSON.stringify(obj, null, 2),
     },
   });

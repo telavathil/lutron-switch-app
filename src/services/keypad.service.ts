@@ -97,6 +97,7 @@ export class KeypadService {
           keypad.buttons[buttonIndex].logic.ledLogic.sceneNumber = updateDto.logic.sceneNumber;
         }
 
+        // Single Action button actions
         if (updateDto.logic.pressActions) {
           keypad.buttons[buttonIndex].logic.actions.press = updateDto.logic.pressActions;
         }
@@ -108,6 +109,14 @@ export class KeypadService {
         }
         if (updateDto.logic.holdActions) {
           keypad.buttons[buttonIndex].logic.actions.hold = updateDto.logic.holdActions;
+        }
+
+        // Toggle button actions
+        if (updateDto.logic.onActions) {
+          keypad.buttons[buttonIndex].logic.actions.on = updateDto.logic.onActions;
+        }
+        if (updateDto.logic.offActions) {
+          keypad.buttons[buttonIndex].logic.actions.off = updateDto.logic.offActions;
         }
 
         const updateStmt = this.db.prepare(`
