@@ -1,0 +1,160 @@
+<div style="
+  background: var(--color-carbon);
+  border: 1px solid {{borderColor}};
+  border-radius: 2px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+">
+  <div style="margin-bottom: 1rem;">
+    <label style="
+      display: block;
+      font-family: var(--font-technical);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-silver);
+      margin-bottom: 0.5rem;
+    ">Load Path</label>
+    <select
+      name="logic.{{actionType}}[{{index}}].loadFullPath"
+      required
+      style="
+        width: 100%;
+        background: var(--color-slate);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 2px;
+        padding: 0.75rem 1rem;
+        font-family: var(--font-technical);
+        font-size: 11px;
+        color: var(--color-pearl);
+        cursor: pointer;
+      "
+      onfocus="this.style.borderColor='{{color}}'; this.style.boxShadow='0 0 0 2px {{borderColor}}'"
+      onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+    >
+      <option value="" disabled selected style="color: rgba(255, 255, 255, 0.4);">Select a load...</option>
+      {{#each loads}}
+        <option value="{{this.fullPath}}" style="background: var(--color-slate); color: var(--color-pearl);">
+          {{this.location.area}} › {{this.location.room}} › {{this.zone}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+    <div>
+      <label style="
+        display: block;
+        font-family: var(--font-technical);
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-silver);
+        margin-bottom: 0.5rem;
+      ">Level (%)</label>
+      <input
+        type="number"
+        name="logic.{{actionType}}[{{index}}].commandLevel"
+        value="{{defaultLevel}}"
+        min="0"
+        max="100"
+        required
+        style="
+          width: 100%;
+          background: var(--color-slate);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
+          padding: 0.75rem 1rem;
+          font-family: var(--font-technical);
+          font-size: 11px;
+          color: var(--color-pearl);
+        "
+        onfocus="this.style.borderColor='{{color}}'; this.style.boxShadow='0 0 0 2px {{borderColor}}'"
+        onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+      />
+    </div>
+    <div>
+      <label style="
+        display: block;
+        font-family: var(--font-technical);
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-silver);
+        margin-bottom: 0.5rem;
+      ">Fade (s)</label>
+      <input
+        type="number"
+        name="logic.{{actionType}}[{{index}}].fadeTime"
+        value="2"
+        min="0"
+        step="0.1"
+        required
+        style="
+          width: 100%;
+          background: var(--color-slate);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
+          padding: 0.75rem 1rem;
+          font-family: var(--font-technical);
+          font-size: 11px;
+          color: var(--color-pearl);
+        "
+        onfocus="this.style.borderColor='{{color}}'; this.style.boxShadow='0 0 0 2px {{borderColor}}'"
+        onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+      />
+    </div>
+    <div>
+      <label style="
+        display: block;
+        font-family: var(--font-technical);
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-silver);
+        margin-bottom: 0.5rem;
+      ">Delay (s)</label>
+      <input
+        type="number"
+        name="logic.{{actionType}}[{{index}}].delay"
+        value="0"
+        min="0"
+        step="0.1"
+        required
+        style="
+          width: 100%;
+          background: var(--color-slate);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
+          padding: 0.75rem 1rem;
+          font-family: var(--font-technical);
+          font-size: 11px;
+          color: var(--color-pearl);
+        "
+        onfocus="this.style.borderColor='{{color}}'; this.style.boxShadow='0 0 0 2px {{borderColor}}'"
+        onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+      />
+    </div>
+  </div>
+  <button
+    type="button"
+    onclick="this.parentElement.remove()"
+    style="
+      margin-top: 0.75rem;
+      background: rgba(255, 77, 77, 0.1);
+      border: 1px solid rgba(255, 77, 77, 0.3);
+      border-radius: 2px;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-technical);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #ff6b6b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    "
+    onmouseover="this.style.background='rgba(255, 77, 77, 0.2)'"
+    onmouseout="this.style.background='rgba(255, 77, 77, 0.1)'"
+  >
+    Remove
+  </button>
+</div>

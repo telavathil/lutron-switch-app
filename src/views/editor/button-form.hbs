@@ -155,35 +155,9 @@
       </div>
     {{/if}}
 
-    <div style="
-      padding: 1.5rem;
-      background: rgba(255, 184, 77, 0.05);
-      border: 1px solid rgba(255, 184, 77, 0.2);
-      border-radius: 2px;
-    ">
-      <p style="
-        font-family: var(--font-technical);
-        font-size: 11px;
-        letter-spacing: 0.08em;
-        color: var(--color-silver);
-        margin: 0 0 0.5rem 0;
-      ">
-        ⚠️ Action editing coming soon
-      </p>
-      <p style="
-        font-family: var(--font-technical);
-        font-size: 10px;
-        letter-spacing: 0.05em;
-        color: var(--color-iron);
-        margin: 0;
-        line-height: 1.6;
-      ">
-        Currently actions are imported from the Programming Report and displayed as read-only. Full action editing (add/remove/modify loads) will be available in the next update.
-      </p>
-    </div>
-
-    <!-- Display existing actions (read-only for now) -->
-    {{#if button.logic.actions.on}}
+    <!-- Toggle Button Actions -->
+    {{#if (eq button.logic.type 'toggle')}}
+      <!-- On Actions -->
       <div>
         <div style="
           font-family: var(--font-technical);
@@ -206,40 +180,188 @@
           "></span>
           On Actions (Toggle)
         </div>
-        {{#each button.logic.actions.on}}
-          <div style="
-            background: var(--color-carbon);
-            border: 1px solid rgba(129, 201, 149, 0.1);
+        <div id="on-actions">
+          {{#each button.logic.actions.on}}
+            <div style="
+              background: var(--color-carbon);
+              border: 1px solid rgba(129, 201, 149, 0.1);
+              border-radius: 2px;
+              padding: 1rem 1.25rem;
+              margin-bottom: 0.75rem;
+            ">
+              <div style="margin-bottom: 1rem;">
+                <label style="
+                  display: block;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: var(--color-silver);
+                  margin-bottom: 0.5rem;
+                ">Load Path</label>
+                <select
+                  name="logic.onActions[{{@index}}].loadFullPath"
+                  required
+                  style="
+                    width: 100%;
+                    background: var(--color-slate);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 2px;
+                    padding: 0.75rem 1rem;
+                    font-family: var(--font-technical);
+                    font-size: 11px;
+                    color: var(--color-pearl);
+                    cursor: pointer;
+                  "
+                  onfocus="this.style.borderColor='#81c995'; this.style.boxShadow='0 0 0 2px rgba(129, 201, 149, 0.1)'"
+                  onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+                >
+                  {{#each ../allLoads}}
+                    <option value="{{this.fullPath}}" {{#if (eq this.fullPath ../loadFullPath)}}selected{{/if}} style="background: var(--color-slate); color: var(--color-pearl);">
+                      {{this.location.area}} › {{this.location.room}} › {{this.zone}}
+                    </option>
+                  {{/each}}
+                </select>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Level (%)</label>
+                  <input
+                    type="number"
+                    name="logic.onActions[{{@index}}].commandLevel"
+                    value="{{commandLevel}}"
+                    min="0"
+                    max="100"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Fade (s)</label>
+                  <input
+                    type="number"
+                    name="logic.onActions[{{@index}}].fadeTime"
+                    value="{{fadeTime}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Delay (s)</label>
+                  <input
+                    type="number"
+                    name="logic.onActions[{{@index}}].delay"
+                    value="{{delay}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                onclick="this.parentElement.remove()"
+                style="
+                  margin-top: 0.75rem;
+                  background: rgba(255, 77, 77, 0.1);
+                  border: 1px solid rgba(255, 77, 77, 0.3);
+                  border-radius: 2px;
+                  padding: 0.5rem 1rem;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: #ff6b6b;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                "
+              >
+                Remove
+              </button>
+            </div>
+          {{/each}}
+        </div>
+        <button
+          type="button"
+          hx-get="/button/{{button.id}}/add-on-action"
+          hx-target="#on-actions"
+          hx-swap="beforeend"
+          style="
+            width: 100%;
+            background: rgba(129, 201, 149, 0.1);
+            border: 1px solid rgba(129, 201, 149, 0.3);
             border-radius: 2px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-          ">
-            <div style="
-              font-family: var(--font-technical);
-              font-size: 12px;
-              color: var(--color-pearl);
-              margin-bottom: 0.5rem;
-            ">
-              {{loadFullPath}}
-            </div>
-            <div style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 0.75rem;
-              font-family: var(--font-technical);
-              font-size: 10px;
-              color: var(--color-silver);
-            ">
-              <div>Level: <span style="color: #81c995;">{{commandLevel}}%</span></div>
-              <div>Fade: <span style="color: #81c995;">{{fadeTime}}s</span></div>
-              <div>Delay: <span style="color: #81c995;">{{delay}}s</span></div>
-            </div>
-          </div>
-        {{/each}}
+            padding: 0.75rem;
+            font-family: var(--font-technical);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #81c995;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='rgba(129, 201, 149, 0.2)'"
+          onmouseout="this.style.background='rgba(129, 201, 149, 0.1)'"
+        >
+          + Add On Action
+        </button>
       </div>
-    {{/if}}
 
-    {{#if button.logic.actions.off}}
+      <!-- Off Actions -->
       <div>
         <div style="
           font-family: var(--font-technical);
@@ -262,40 +384,191 @@
           "></span>
           Off Actions (Toggle)
         </div>
-        {{#each button.logic.actions.off}}
-          <div style="
-            background: var(--color-carbon);
-            border: 1px solid rgba(74, 74, 74, 0.1);
+        <div id="off-actions">
+          {{#each button.logic.actions.off}}
+            <div style="
+              background: var(--color-carbon);
+              border: 1px solid rgba(74, 74, 74, 0.1);
+              border-radius: 2px;
+              padding: 1rem 1.25rem;
+              margin-bottom: 0.75rem;
+            ">
+              <div style="margin-bottom: 1rem;">
+                <label style="
+                  display: block;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: var(--color-silver);
+                  margin-bottom: 0.5rem;
+                ">Load Path</label>
+                <select
+                  name="logic.offActions[{{@index}}].loadFullPath"
+                  required
+                  style="
+                    width: 100%;
+                    background: var(--color-slate);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 2px;
+                    padding: 0.75rem 1rem;
+                    font-family: var(--font-technical);
+                    font-size: 11px;
+                    color: var(--color-pearl);
+                    cursor: pointer;
+                  "
+                  onfocus="this.style.borderColor='#9a9a9a'; this.style.boxShadow='0 0 0 2px rgba(74, 74, 74, 0.1)'"
+                  onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+                >
+                  {{#each ../allLoads}}
+                    <option value="{{this.fullPath}}" {{#if (eq this.fullPath ../loadFullPath)}}selected{{/if}} style="background: var(--color-slate); color: var(--color-pearl);">
+                      {{this.location.area}} › {{this.location.room}} › {{this.zone}}
+                    </option>
+                  {{/each}}
+                </select>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Level (%)</label>
+                  <input
+                    type="number"
+                    name="logic.offActions[{{@index}}].commandLevel"
+                    value="{{commandLevel}}"
+                    min="0"
+                    max="100"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Fade (s)</label>
+                  <input
+                    type="number"
+                    name="logic.offActions[{{@index}}].fadeTime"
+                    value="{{fadeTime}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Delay (s)</label>
+                  <input
+                    type="number"
+                    name="logic.offActions[{{@index}}].delay"
+                    value="{{delay}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                onclick="this.parentElement.remove()"
+                style="
+                  margin-top: 0.75rem;
+                  background: rgba(255, 77, 77, 0.1);
+                  border: 1px solid rgba(255, 77, 77, 0.3);
+                  border-radius: 2px;
+                  padding: 0.5rem 1rem;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: #ff6b6b;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                "
+              >
+                Remove
+              </button>
+            </div>
+          {{/each}}
+        </div>
+        <button
+          type="button"
+          hx-get="/button/{{button.id}}/add-off-action"
+          hx-target="#off-actions"
+          hx-swap="beforeend"
+          style="
+            width: 100%;
+            background: rgba(74, 74, 74, 0.1);
+            border: 1px solid rgba(74, 74, 74, 0.3);
             border-radius: 2px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-          ">
-            <div style="
-              font-family: var(--font-technical);
-              font-size: 12px;
-              color: var(--color-pearl);
-              margin-bottom: 0.5rem;
-            ">
-              {{loadFullPath}}
-            </div>
-            <div style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 0.75rem;
-              font-family: var(--font-technical);
-              font-size: 10px;
-              color: var(--color-silver);
-            ">
-              <div>Level: <span style="color: #9a9a9a;">{{commandLevel}}%</span></div>
-              <div>Fade: <span style="color: #9a9a9a;">{{fadeTime}}s</span></div>
-              <div>Delay: <span style="color: #9a9a9a;">{{delay}}s</span></div>
-            </div>
-          </div>
-        {{/each}}
+            padding: 0.75rem;
+            font-family: var(--font-technical);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #9a9a9a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='rgba(74, 74, 74, 0.2)'"
+          onmouseout="this.style.background='rgba(74, 74, 74, 0.1)'"
+        >
+          + Add Off Action
+        </button>
       </div>
     {{/if}}
 
-    {{#if button.logic.actions.press}}
+    <!-- Single Action Button Actions -->
+    {{#if (eq button.logic.type 'single-action')}}
+      <!-- Press Actions -->
       <div>
         <div style="
           font-family: var(--font-technical);
@@ -318,40 +591,188 @@
           "></span>
           Press Actions
         </div>
-        {{#each button.logic.actions.press}}
-          <div style="
-            background: var(--color-carbon);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        <div id="press-actions">
+          {{#each button.logic.actions.press}}
+            <div style="
+              background: var(--color-carbon);
+              border: 1px solid rgba(255, 255, 255, 0.05);
+              border-radius: 2px;
+              padding: 1rem 1.25rem;
+              margin-bottom: 0.75rem;
+            ">
+              <div style="margin-bottom: 1rem;">
+                <label style="
+                  display: block;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: var(--color-silver);
+                  margin-bottom: 0.5rem;
+                ">Load Path</label>
+                <select
+                  name="logic.pressActions[{{@index}}].loadFullPath"
+                  required
+                  style="
+                    width: 100%;
+                    background: var(--color-slate);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 2px;
+                    padding: 0.75rem 1rem;
+                    font-family: var(--font-technical);
+                    font-size: 11px;
+                    color: var(--color-pearl);
+                    cursor: pointer;
+                  "
+                  onfocus="this.style.borderColor='var(--color-amber)'; this.style.boxShadow='0 0 0 2px rgba(255, 255, 255, 0.05)'"
+                  onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+                >
+                  {{#each ../allLoads}}
+                    <option value="{{this.fullPath}}" {{#if (eq this.fullPath ../loadFullPath)}}selected{{/if}} style="background: var(--color-slate); color: var(--color-pearl);">
+                      {{this.location.area}} › {{this.location.room}} › {{this.zone}}
+                    </option>
+                  {{/each}}
+                </select>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Level (%)</label>
+                  <input
+                    type="number"
+                    name="logic.pressActions[{{@index}}].commandLevel"
+                    value="{{commandLevel}}"
+                    min="0"
+                    max="100"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Fade (s)</label>
+                  <input
+                    type="number"
+                    name="logic.pressActions[{{@index}}].fadeTime"
+                    value="{{fadeTime}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Delay (s)</label>
+                  <input
+                    type="number"
+                    name="logic.pressActions[{{@index}}].delay"
+                    value="{{delay}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                onclick="this.parentElement.remove()"
+                style="
+                  margin-top: 0.75rem;
+                  background: rgba(255, 77, 77, 0.1);
+                  border: 1px solid rgba(255, 77, 77, 0.3);
+                  border-radius: 2px;
+                  padding: 0.5rem 1rem;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: #ff6b6b;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                "
+              >
+                Remove
+              </button>
+            </div>
+          {{/each}}
+        </div>
+        <button
+          type="button"
+          hx-get="/button/{{button.id}}/add-press-action"
+          hx-target="#press-actions"
+          hx-swap="beforeend"
+          style="
+            width: 100%;
+            background: rgba(255, 184, 77, 0.1);
+            border: 1px solid rgba(255, 184, 77, 0.3);
             border-radius: 2px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-          ">
-            <div style="
-              font-family: var(--font-technical);
-              font-size: 12px;
-              color: var(--color-pearl);
-              margin-bottom: 0.5rem;
-            ">
-              {{loadFullPath}}
-            </div>
-            <div style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 0.75rem;
-              font-family: var(--font-technical);
-              font-size: 10px;
-              color: var(--color-silver);
-            ">
-              <div>Level: <span style="color: var(--color-amber);">{{commandLevel}}%</span></div>
-              <div>Fade: <span style="color: var(--color-amber);">{{fadeTime}}s</span></div>
-              <div>Delay: <span style="color: var(--color-amber);">{{delay}}s</span></div>
-            </div>
-          </div>
-        {{/each}}
+            padding: 0.75rem;
+            font-family: var(--font-technical);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-amber);
+            cursor: pointer;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='rgba(255, 184, 77, 0.2)'"
+          onmouseout="this.style.background='rgba(255, 184, 77, 0.1)'"
+        >
+          + Add Press Action
+        </button>
       </div>
-    {{/if}}
 
-    {{#if button.logic.actions.doubleTap}}
+      <!-- Double Tap Actions -->
       <div>
         <div style="
           font-family: var(--font-technical);
@@ -374,183 +795,187 @@
           "></span>
           Double Tap Actions
         </div>
-        {{#each button.logic.actions.doubleTap}}
-          <div style="
-            background: var(--color-carbon);
-            border: 1px solid rgba(139, 180, 248, 0.1);
-            border-radius: 2px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-          ">
+        <div id="doubletap-actions">
+          {{#each button.logic.actions.doubleTap}}
             <div style="
-              font-family: var(--font-technical);
-              font-size: 12px;
-              color: var(--color-pearl);
-              margin-bottom: 0.5rem;
+              background: var(--color-carbon);
+              border: 1px solid rgba(139, 180, 248, 0.1);
+              border-radius: 2px;
+              padding: 1rem 1.25rem;
+              margin-bottom: 0.75rem;
             ">
-              {{loadFullPath}}
+              <div style="margin-bottom: 1rem;">
+                <label style="
+                  display: block;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: var(--color-silver);
+                  margin-bottom: 0.5rem;
+                ">Load Path</label>
+                <select
+                  name="logic.doubleTapActions[{{@index}}].loadFullPath"
+                  required
+                  style="
+                    width: 100%;
+                    background: var(--color-slate);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 2px;
+                    padding: 0.75rem 1rem;
+                    font-family: var(--font-technical);
+                    font-size: 11px;
+                    color: var(--color-pearl);
+                    cursor: pointer;
+                  "
+                  onfocus="this.style.borderColor='#8ab4f8'; this.style.boxShadow='0 0 0 2px rgba(139, 180, 248, 0.1)'"
+                  onblur="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.boxShadow='none'"
+                >
+                  {{#each ../allLoads}}
+                    <option value="{{this.fullPath}}" {{#if (eq this.fullPath ../loadFullPath)}}selected{{/if}} style="background: var(--color-slate); color: var(--color-pearl);">
+                      {{this.location.area}} › {{this.location.room}} › {{this.zone}}
+                    </option>
+                  {{/each}}
+                </select>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Level (%)</label>
+                  <input
+                    type="number"
+                    name="logic.doubleTapActions[{{@index}}].commandLevel"
+                    value="{{commandLevel}}"
+                    min="0"
+                    max="100"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Fade (s)</label>
+                  <input
+                    type="number"
+                    name="logic.doubleTapActions[{{@index}}].fadeTime"
+                    value="{{fadeTime}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+                <div>
+                  <label style="
+                    display: block;
+                    font-family: var(--font-technical);
+                    font-size: 9px;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--color-silver);
+                    margin-bottom: 0.5rem;
+                  ">Delay (s)</label>
+                  <input
+                    type="number"
+                    name="logic.doubleTapActions[{{@index}}].delay"
+                    value="{{delay}}"
+                    min="0"
+                    step="0.1"
+                    required
+                    style="
+                      width: 100%;
+                      background: var(--color-slate);
+                      border: 1px solid rgba(255, 255, 255, 0.08);
+                      border-radius: 2px;
+                      padding: 0.75rem 1rem;
+                      font-family: var(--font-technical);
+                      font-size: 11px;
+                      color: var(--color-pearl);
+                    "
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                onclick="this.parentElement.remove()"
+                style="
+                  margin-top: 0.75rem;
+                  background: rgba(255, 77, 77, 0.1);
+                  border: 1px solid rgba(255, 77, 77, 0.3);
+                  border-radius: 2px;
+                  padding: 0.5rem 1rem;
+                  font-family: var(--font-technical);
+                  font-size: 9px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: #ff6b6b;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                "
+              >
+                Remove
+              </button>
             </div>
-            <div style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 0.75rem;
-              font-family: var(--font-technical);
-              font-size: 10px;
-              color: var(--color-silver);
-            ">
-              <div>Level: <span style="color: #8ab4f8;">{{commandLevel}}%</span></div>
-              <div>Fade: <span style="color: #8ab4f8;">{{fadeTime}}s</span></div>
-              <div>Delay: <span style="color: #8ab4f8;">{{delay}}s</span></div>
-            </div>
-          </div>
-        {{/each}}
-      </div>
-    {{/if}}
-
-    {{#if button.logic.actions.release}}
-      <div>
-        <div style="
-          font-family: var(--font-technical);
-          font-size: 11px;
-          font-weight: 500;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: var(--color-silver);
-          margin-bottom: 1rem;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        ">
-          <span style="
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: #81c995;
-            border-radius: 50%;
-          "></span>
-          Release Actions
+          {{/each}}
         </div>
-        {{#each button.logic.actions.release}}
-          <div style="
-            background: var(--color-carbon);
-            border: 1px solid rgba(129, 201, 149, 0.1);
+        <button
+          type="button"
+          hx-get="/button/{{button.id}}/add-doubletap-action"
+          hx-target="#doubletap-actions"
+          hx-swap="beforeend"
+          style="
+            width: 100%;
+            background: rgba(138, 180, 248, 0.1);
+            border: 1px solid rgba(138, 180, 248, 0.3);
             border-radius: 2px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-          ">
-            <div style="
-              font-family: var(--font-technical);
-              font-size: 12px;
-              color: var(--color-pearl);
-              margin-bottom: 0.5rem;
-            ">
-              {{loadFullPath}}
-            </div>
-            <div style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 0.75rem;
-              font-family: var(--font-technical);
-              font-size: 10px;
-              color: var(--color-silver);
-            ">
-              <div>Level: <span style="color: #81c995;">{{commandLevel}}%</span></div>
-              <div>Fade: <span style="color: #81c995;">{{fadeTime}}s</span></div>
-              <div>Delay: <span style="color: #81c995;">{{delay}}s</span></div>
-            </div>
-          </div>
-        {{/each}}
-      </div>
-    {{/if}}
-
-    {{#if button.logic.actions.hold}}
-      <div>
-        <div style="
-          font-family: var(--font-technical);
-          font-size: 11px;
-          font-weight: 500;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: var(--color-silver);
-          margin-bottom: 1rem;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        ">
-          <span style="
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: #f8bb86;
-            border-radius: 50%;
-          "></span>
-          Hold Actions
-        </div>
-        {{#each button.logic.actions.hold}}
-          <div style="
-            background: var(--color-carbon);
-            border: 1px solid rgba(248, 187, 134, 0.1);
-            border-radius: 2px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-          ">
-            <div style="
-              font-family: var(--font-technical);
-              font-size: 12px;
-              color: var(--color-pearl);
-              margin-bottom: 0.5rem;
-            ">
-              {{loadFullPath}}
-            </div>
-            <div style="
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 0.75rem;
-              font-family: var(--font-technical);
-              font-size: 10px;
-              color: var(--color-silver);
-            ">
-              <div>Level: <span style="color: #f8bb86;">{{commandLevel}}%</span></div>
-              <div>Fade: <span style="color: #f8bb86;">{{fadeTime}}s</span></div>
-              <div>Delay: <span style="color: #f8bb86;">{{delay}}s</span></div>
-            </div>
-          </div>
-        {{/each}}
-      </div>
-    {{/if}}
-
-    {{#unless (or button.logic.actions.press button.logic.actions.doubleTap button.logic.actions.release button.logic.actions.hold button.logic.actions.on button.logic.actions.off)}}
-      <div>
-        <div style="
-          font-family: var(--font-technical);
-          font-size: 11px;
-          font-weight: 500;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: var(--color-silver);
-          margin-bottom: 1rem;
-        ">
-          Button Actions
-        </div>
-        <div style="
-          text-align: center;
-          padding: 2rem;
-          background: var(--color-carbon);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 2px;
-        ">
-          <p style="
+            padding: 0.75rem;
             font-family: var(--font-technical);
-            font-size: 11px;
-            letter-spacing: 0.08em;
-            color: var(--color-iron);
-            margin: 0;
-          ">
-            No actions configured
-          </p>
-        </div>
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #8ab4f8;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='rgba(138, 180, 248, 0.2)'"
+          onmouseout="this.style.background='rgba(138, 180, 248, 0.1)'"
+        >
+          + Add Double Tap Action
+        </button>
       </div>
-    {{/unless}}
+    {{/if}}
 
     <button
       type="submit"
